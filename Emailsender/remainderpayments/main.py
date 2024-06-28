@@ -1,9 +1,33 @@
+import streamlit as st 
+from streamlit_gsheets import GSheetsConnection
 from datetime import date
 import pandas as pd 
 from paymentremiander import send_email
-# # import sys
-# # sys.path.append('../paymentremiander')
-# # from paymentremiander import send_email
+
+st.write('## Welcome to your payment reminder program')
+st.write('### Client Information' )
+
+
+url = "https://docs.google.com/spreadsheets/d/1Pa8P5aZovswZAD1ynJVm-V8a9z5cehlGAoi28HbgRpo/edit?gid=0#gid=0"
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+
+data = conn.read(spreadsheet=url, usecols=[1, 2, ])
+st.dataframe(data)
+
+st.subheader('Top customers ')
+sql = '''
+SELECT 
+      first_name,
+      second_name
+FROM invoice_data
+WHERE amount > 10000
+ORDER BY amount DESC;
+
+'''
+df_top_customers =  conn.query(spreadsheet=url,sql=sql)
+st.dataframe(df_top_customers)
+     
 
 
 
@@ -40,8 +64,8 @@ def check_and_send(df):
     return f'Total emails sent: {count_email}'
 
 df = load_fl(URL)
-result= check_and_send(df)
-print(result)
+if st.button('Send Payment Reminders'):
+    result = check_and_send(df)
+    st.write(result)
 
-    
     
