@@ -1,6 +1,6 @@
 from datetime import date
 import pandas as pd 
-# from .paymentremiander import send_email
+from paymentremiander import send_email
 # # import sys
 # # sys.path.append('../paymentremiander')
 # # from paymentremiander import send_email
@@ -24,17 +24,24 @@ print(load_fl(URL))
 
 def check_and_send(df):
     present = date.today()
-    count_email=0
-    for row in df.iterrows():
-        if (present>=row['remainder_date'].date()) and (row['has_paid'] == 'no'):
+    count_email= 0
+    for index, row in df.iterrows():
+        if (present>=row['reminder_date'].date()) and (row['has_paid'] == 'no'):
             send_email(
-               name="John doe ",
-               email_receiver='lereko4539@egela.com',
-               due_date='11 Aug 2022',
-               invoice_no='inv-21-12-009',
-               amount='5'
+            #    subject= f"[Coding is fun] Invoice:{row['invoice_no']}",
+               name=row['name'],
+               email_receiver= row['email'],
+               due_date= row['due_date'].strftime('%d  %b %Y'),
+               invoice_no= row['invoice_no'],
+               amount= row['amount']
             )
-        count_email+=1
+            count_email += 1
+    
     return f'Total emails sent: {count_email}'
+
+df = load_fl(URL)
+result= check_and_send(df)
+print(result)
+
     
     

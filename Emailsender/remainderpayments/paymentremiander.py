@@ -7,9 +7,9 @@ import ssl
 
 email_sender='morrisindet@gmail.com'
 email_password = 'wzan rogv kaav xlmr'
-subject = 'Invoice Remainder '
+subject = 'Invoice Reminder '
 
-def send_email(name,email_receiver,due_date,invoice_no,amount ):
+def send_email( name,email_receiver,due_date,invoice_no,amount ):
     
     # Base text message 
     em = EmailMessage()
@@ -23,7 +23,7 @@ def send_email(name,email_receiver,due_date,invoice_no,amount ):
         Hi {name},
         I hope you are well.
         I just want to drop you a quick reminder you that {amount} USD in respect  of our 
-        invoice {invoice_no} is due for payment on {due_date}.
+        invoice {invoice_no} was due for payment on {due_date}.
         I would be really grateful if you could confirm that everything is on track for payment.
         Best regards 
         Morris Sindet CEO 
@@ -35,7 +35,7 @@ def send_email(name,email_receiver,due_date,invoice_no,amount ):
              <p>Hi {name},</p
              <p>I hope you are well.</p>
              <p>I just want to drop you a quick reminder you that <strong> {amount} </strong> USD in respect  of our 
-                invoice {invoice_no} is due for payment on <strong>{due_date}</strong>.</p>
+                invoice {invoice_no} was due for payment on <strong>{due_date}</strong>.</p>
              <p>I would be really grateful if you could confirm that everything is on track for payment.</p>
              <p>Best regards </p 
              <p>Morris Sindet CEO </p>
@@ -55,7 +55,7 @@ def send_email(name,email_receiver,due_date,invoice_no,amount ):
 if __name__ == "__main__":
     send_email(
         name="John doe ",
-        email_receiver='lereko4539@egela.com',
+        email_receiver='dikaha2526@kinsef.com',
         due_date='11 Aug 2022',
         invoice_no='inv-21-12-009',
         amount='5'
